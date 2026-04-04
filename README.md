@@ -97,6 +97,30 @@ The test suite covers 19 tests across both the OOP (`Recommender` class) and fun
 
 ---
 
+## Demo Screenshots
+
+### Default Profile: Happy Pop Fan
+
+![Happy Pop Fan Recommendations](screenshots/happy_pop_fan.png)
+
+### Chill Lofi Listener
+
+![Chill Lofi Listener Recommendations](screenshots/chill_lofi_listener.png)
+
+### Intense Rock Lover
+
+![Intense Rock Lover Recommendations](screenshots/intense_rock_lover.png)
+
+### EDM Gym Warrior
+
+![EDM Gym Warrior Recommendations](screenshots/edm_gym_warrior.png)
+
+### Mellow Acoustic Soul
+
+![Mellow Acoustic Soul Recommendations](screenshots/mellow_acoustic_soul.png)
+
+---
+
 ## Experiments I Tried
 
 ### Weight Shift: Doubled Energy, Halved Genre
@@ -130,3 +154,7 @@ Read and complete the model card: [**Model Card**](model_card.md)
 Building this recommender made me realize how much of what feels like "magic" in Spotify or TikTok is actually just math on features — weighted sums, distance calculations, sorting. The core loop is dead simple: score everything, sort, show the top results. What makes real systems powerful isn't the algorithm complexity, it's the data volume and the feedback loop (skips, replays, saves) that this simulation doesn't have.
 
 The biggest surprise was how much genre dominates. When I first ran the system, every profile just got "the best song from their genre" regardless of other features. Tuning the weights to give mood and energy more influence made the results feel more natural, but it's a balancing act — and there's no objectively "right" answer for how much each feature should matter. That's where bias lives: in the weights we choose and the data we collect. A catalog that's 30% pop will naturally recommend more pop, and a scoring system that weights genre highest will create filter bubbles by design.
+
+**How AI tools helped**: Copilot was most useful for generating the initial CSV expansion — I described what genres were missing and it produced valid rows in the right format faster than I could type them. It also helped me think through the scoring formula by suggesting the energy proximity approach (1.0 - abs(gap)) instead of my original idea of just comparing raw values. Where I had to double-check: Copilot initially suggested equal weights for all features, which would have made genre and mood indistinguishable in the output. I manually adjusted the weights after testing to make sure genre carried the most identity.
+
+**What I'd try next**: I'd add a feedback mechanism — let the user thumbs-up/down results and have the weights adjust over time. I'd also pull real audio features from Spotify's API instead of making up the numbers, and test with a 500+ song catalog to see if the scoring logic still holds at scale.

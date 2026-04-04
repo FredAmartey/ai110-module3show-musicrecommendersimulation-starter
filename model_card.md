@@ -10,6 +10,13 @@
 
 VibeFinder suggests 5 songs from a small catalog based on a user's preferred genre, mood, energy level, and acoustic preference. It's a classroom simulation for exploring how content-based recommendation works — not intended for real users or production deployment. It assumes the user has a single fixed taste profile and works best for exploring how weighted scoring turns preferences into ranked results.
 
+### Non-Intended Use
+
+- **Not for production music streaming** — the 20-song catalog is too small for real discovery, and the scoring weights haven't been validated against actual user behavior.
+- **Not for mental health or therapeutic playlists** — the system has no understanding of emotional context or wellbeing. Recommending "sad" music to someone who is sad could be harmful.
+- **Not for commercial playlist curation** — no licensing, rights management, or artist compensation is considered.
+- **Not for evaluating musical quality** — the score measures "fit to preferences," not whether a song is good. A perfect-scoring song could still be terrible.
+
 ---
 
 ## 3. How the Model Works
@@ -98,3 +105,7 @@ The most surprising thing was how much the weight tuning matters. The algorithm 
 Building this also changed how I think about filter bubbles. My system literally cannot recommend outside your stated genre preference unless there's nothing else to show. That's by design, but it means a pop listener in this system would never discover that they might love jazz. Real recommenders face this same tension between giving users what they want and expanding their horizons.
 
 Where human judgment still matters: the system can tell you that a song scored 5.4, but it can't tell you whether that song will make you feel something. The numbers capture similarity, not quality or emotional resonance. A human curator would know that "Rainy Window" on a sad day hits different than the math suggests.
+
+**How AI tools shaped my process**: Copilot was genuinely helpful for two things: expanding the CSV dataset (it generated diverse songs in valid format much faster than manual entry) and suggesting the energy proximity formula. I originally planned to just check "high/medium/low" energy buckets, but Copilot suggested the continuous 1.0 - abs(gap) approach which produces much smoother scoring. Where I had to push back: Copilot suggested using cosine similarity across all numerical features, which would've been elegant but would've hidden the individual feature contributions. I kept the explicit per-feature scoring because the "reasons" output is what makes the system explainable — and explainability was the whole point.
+
+**What I'd try next**: First, I'd connect to Spotify's audio features API so the numerical values are real instead of invented. Second, I'd add a diversity constraint — if the top 3 results are all the same genre, force the third slot to be a different genre. Third, I'd build a simple feedback loop where thumbs-up/down adjusts the weights over time, turning this from a static recommender into something that actually learns.
