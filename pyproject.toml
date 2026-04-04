@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "music-recommender"
+version = "0.1.0"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
