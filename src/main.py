@@ -42,6 +42,12 @@ PROFILES = {
         "energy": 0.35,
         "likes_acoustic": True,
     },
+    "Contradiction Test": {
+        "genre": "pop",
+        "mood": "sad",
+        "energy": 0.95,
+        "likes_acoustic": True,
+    },
 }
 
 

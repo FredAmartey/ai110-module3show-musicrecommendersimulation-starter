@@ -81,6 +81,12 @@ cd src
 python main.py
 ```
 
+Full terminal output across all profiles (split into two screenshots):
+
+![Full CLI output — part 1](screenshots/full_output1.png)
+
+![Full CLI output — part 2](screenshots/full_output2.png)
+
 ### Running Tests
 
 ```bash
@@ -118,6 +124,14 @@ The test suite covers 19 tests across both the OOP (`Recommender` class) and fun
 ### Mellow Acoustic Soul
 
 ![Mellow Acoustic Soul Recommendations](screenshots/mellow_acoustic_soul.png)
+
+### Contradiction Test (Adversarial Profile)
+
+A deliberately conflicting profile: `genre: pop`, `mood: sad`, `energy: 0.95`, `likes_acoustic: True`. This tests how the scoring logic handles preferences that can't all be satisfied by any single song in the catalog.
+
+![Contradiction Test Recommendations](screenshots/contradiction_test.png)
+
+The top two results are high-energy pop tracks (wrong mood, wrong acoustic preference) because the 2.0 genre weight overrides the 1.5 mood weight. The only song matching mood + acoustic (Rainy Window) lands at #3 because its low energy (0.30) is far from the target (0.95). This confirms the genre-dominance bias documented in the model card.
 
 ---
 
